@@ -3,21 +3,15 @@ import java.util.Random;
 
 public class Randoms implements Iterable<Integer> {
     private Random random;
-    private int[] array;
+    private int min;
+    private int max;
 
     public Randoms(int min, int max) {
+        this.min = min;
+        this.max = max;
         random = new Random();
-        fillArray(min, max);
     }
 
-    private int[] fillArray(int min, int max) {
-        int arraySize = max - min + 1;
-        array = new int[arraySize];
-        for (int i = 0; i < arraySize; i++) {
-            array[i] = min++;
-        }
-        return array;
-    }
 
     @Override
     public Iterator<Integer> iterator() {
@@ -29,10 +23,9 @@ public class Randoms implements Iterable<Integer> {
 
             @Override
             public Integer next() {
-                return array[random.nextInt(array.length)];
+                return random.nextInt(max - min + 1) + min;
             }
         };
         return iterator;
     }
-
 }
